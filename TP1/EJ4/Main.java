@@ -12,16 +12,24 @@ public class Main {
         lista.insertFront(8);
         lista.insertFront(7);
 
-        Iterator<Integer> it = lista.iterator();
-
-        while (it.hasNext()) {
-            Integer i = it.next();
-            System.out.println(i);
+        //O(size^2)
+        for (int i = 0; i < lista.size(); i++) { // O(size)
+            Integer elem = lista.get(i); // O(size)
+            System.out.println(elem);
         }
 
-        /*for (Integer i : lista) {
+
+        Iterator<Integer> it = lista.iterator();
+
+        while (it.hasNext()) { //O(size)
+            Integer i = it.next(); //O(1)
+            System.out.println(i); //O(1)
+        }
+
+        //HACE LO MISMO QUE ARRIBA (EL ITERATOR)
+        for (Integer i : lista) {
             System.out.println(i);
-        }*/
+        }
 
 
     }

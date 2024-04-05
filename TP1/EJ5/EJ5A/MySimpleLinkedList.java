@@ -1,4 +1,4 @@
-package TP1.EJ4;
+package TP1.EJ5.EJ5A;
 
 import java.util.Iterator;
 
@@ -29,7 +29,7 @@ public class MySimpleLinkedList<T> implements Iterable<T> {
         return this.first == null;
     }
 
-    public T get(int index) { // O(n)
+    public T get(int index) {
         Node<T> tmp = this.first;
         for (int i = 0; i < index; i++)
             tmp = tmp.getNext();
@@ -53,6 +53,14 @@ public class MySimpleLinkedList<T> implements Iterable<T> {
         return res;
     }
 
+    public Node<T> getFirst() {
+        return first;
+    }
+
+    public void setFirst(Node<T> first) {
+        this.first = first;
+    }
+
     //3
     public int indexOf(T info) {
         int i = 0;
@@ -61,13 +69,30 @@ public class MySimpleLinkedList<T> implements Iterable<T> {
             tmp = tmp.getNext();
             i++;
         }
-        if (i <= size)
-            return i;
+        if (i <= size) return i;
         return -1;
     }
 
     @Override
     public Iterator<T> iterator() {
         return new MyIterator<>(this.first);
+    }
+
+
+    public void buscoYAgrego(MySimpleLinkedList<T> listaAComparar, MySimpleLinkedList<T> listaResultante) {
+        for (T i : this) {
+            if (buscar(i, listaAComparar))
+                listaResultante.insertFront(i);
+        }
+    }
+
+    public boolean buscar(T num, MySimpleLinkedList<T> lista) {
+        int i = 0;
+        Node<T> tmp = lista.getFirst();
+        while (i < lista.size() && num != tmp.getInfo()) {
+            tmp = tmp.getNext();
+            i++;
+        }
+        return (i < lista.size());
     }
 }

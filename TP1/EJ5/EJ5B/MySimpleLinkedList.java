@@ -1,6 +1,5 @@
-package TP1.EJ4;
+package TP1.EJ5.EJ5B;
 
-import java.util.Iterator;
 
 public class MySimpleLinkedList<T> implements Iterable<T> {
     private Node<T> first;
@@ -29,7 +28,9 @@ public class MySimpleLinkedList<T> implements Iterable<T> {
         return this.first == null;
     }
 
-    public T get(int index) { // O(n)
+    public T get(int index) {
+        if (index < 0 || index > size)
+            return null;
         Node<T> tmp = this.first;
         for (int i = 0; i < index; i++)
             tmp = tmp.getNext();
@@ -53,6 +54,14 @@ public class MySimpleLinkedList<T> implements Iterable<T> {
         return res;
     }
 
+    public Node<T> getFirst() {
+        return first;
+    }
+
+    public void setFirst(Node<T> first) {
+        this.first = first;
+    }
+
     //3
     public int indexOf(T info) {
         int i = 0;
@@ -61,13 +70,14 @@ public class MySimpleLinkedList<T> implements Iterable<T> {
             tmp = tmp.getNext();
             i++;
         }
-        if (i <= size)
-            return i;
+        if (i <= size) return i;
         return -1;
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public MyIterator<T> iterator() {
         return new MyIterator<>(this.first);
     }
+
+
 }
