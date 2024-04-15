@@ -56,6 +56,8 @@ public class Tree {
     }
 
     public boolean delete(TreeNode root, Integer num) {
+        if (!this.hasElem(root, num))
+            return false;
 
         //CASO 1: EL NODO ES UNA HOJA
         if (root.getValue() == num) {
@@ -63,6 +65,34 @@ public class Tree {
             if (root.getRight() == null && root.getLeft() == null) {
                 TreeNode padre = root;
                 root.setValue(null);
+                return true;
+            }
+        }
+
+        //CASO 2: EL NODO TIENE UN SOLO HIJO
+        //SI EL NODO A ELIMINAR ESTA A LA DERECHA:
+        TreeNode rightNode = root.getRight();
+        if (rightNode != null && rightNode.getValue() == num) {
+            //EL NODO TIENE UN SOLO HIJO
+            if (rightNode.getRight() != null && rightNode.getLeft() == null) {
+                root.setRight(rightNode.getRight());
+                return true;
+            } else if (rightNode.getRight() == null && rightNode.getLeft() != null) {
+                root.setRight(rightNode.getLeft());
+                return true;
+            }
+        }
+
+        //SI EL NODO A ELIMINAR ESTA A LA IZQUIERDA:
+        TreeNode leftNode = root.getLeft();
+        if (leftNode != null && leftNode.getValue() == num) {
+            //EL NODO TIENE UN SOLO HIJO
+            if (leftNode.getRight() != null && leftNode.getLeft() == null) {
+                root.setLeft(leftNode.getRight());
+                return true;
+
+            } else if (leftNode.getRight() == null && leftNode.getLeft() != null) {
+                root.setLeft(leftNode.getLeft());
                 return true;
             }
         }
@@ -89,34 +119,7 @@ public class Tree {
             return true;
         }
 
-        //SI EL NODO ESTA A LA DERECHA
-        TreeNode rightNode = root.getRight();
-        if (rightNode != null && rightNode.getValue() == num || root.getValue() == num) {
-            //EL NODO TIENE UN SOLO HIJO
-            if (rightNode.getRight() != null && rightNode.getLeft() == null) {
-                root.setRight(rightNode.getRight());
-                return true;
-            } else if (rightNode.getRight() == null && rightNode.getLeft() != null) {
-                root.setRight(rightNode.getLeft());
-                return true;
-            }
-        }
-
-        //SI EL NODO ESTA A LA IZQUIERDA
-        TreeNode leftNode = root.getLeft();
-        if (leftNode != null && leftNode.getValue() == num) {
-            //EL NODO TIENE UN SOLO HIJO
-            if (leftNode.getRight() != null && leftNode.getLeft() == null) {
-                root.setLeft(leftNode.getRight());
-                return true;
-
-            } else if (leftNode.getRight() == null && leftNode.getLeft() != null) {
-                root.setLeft(leftNode.getLeft());
-                return true;
-            }
-        }
-
-        //ITERO
+        //RECORRO NODOS
         if (num > root.getValue())
             return delete(root.getRight(), num);
 
