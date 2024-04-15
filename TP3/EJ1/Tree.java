@@ -56,90 +56,66 @@ public class Tree {
     }
 
     public boolean delete(TreeNode root, Integer num) {
-        if (!this.hasElem(root, num))
-            return false;
 
-        TreeNode right = root.getRight();
-        //EL NUM ESTA EN LA RAMA DER
-        if (right != null) {
-            TreeNode nodoBuscado = root.getRight();
-            if (nodoBuscado.getValue() == num) {
+        //CASO 1: EL NODO ES UNA HOJA
+        if (root.getValue() == num) {
+            //EL NODO ES UNA HOJA
+            if (root.getRight() == null && root.getLeft() == null) {
                 TreeNode padre = root;
-                //EL NODO ES UNA HOJA
-                if (nodoBuscado.getRight() == null && nodoBuscado.getLeft() == null && nodoBuscado.getValue() == num) {
-                    root.setRight(null);
-                    return true;
-                }
-
-                //EL NODO TIENE UN SOLO HIJO
-                if (nodoBuscado.getRight() == null && nodoBuscado.getLeft() != null && nodoBuscado.getValue() == num) {
-                    root.setRight(nodoBuscado.getLeft());
-                    return true;
-                } else if (nodoBuscado.getRight() != null && nodoBuscado.getLeft() == null) {
-                    root.setRight(nodoBuscado.getRight());
-                    return true;
-                }
-                //EL NODO TIENE LOS DOS HIJOS
-                if (padre.getRight() != null && padre.getLeft() != null && padre.getRight().getValue() == num) {
-                    TreeNode padreSubArbDer = padre.getRight().getRight();
-                    //OBTENER EL NODO MAYOR IZQUIERDO DEL SUB ARBOL DERECHO
-                    while (padreSubArbDer.getLeft() != null) {
-                        TreeNode NMI = padreSubArbDer.getLeft();
-                        padreSubArbDer = NMI;
-                    }
-                    //ROOT = NODO MAYOR IZQUIERDO DEL SUB ARBOL DERECHO
-                    nodoBuscado.setRight(padreSubArbDer.getRight());
-                    nodoBuscado.setValue(padreSubArbDer.getValue());
-
-                    //BORRAR EL NODO MAS IZQUIERDO DEL SUBARBOL DERECHO DE SU LUGAR ORIGINAL.
-
-                    return true;
-                }
-            }
-
-        }
-
-
-        TreeNode left = root.getLeft();
-        //EL NUM ESTA EN LA RAMA IZQ
-        if (left != null || left.getValue() == num) {
-            TreeNode nodoBuscado = root.getLeft();
-            if (nodoBuscado.getValue() == num) {
-                TreeNode padre = root;
-                //EL NODO ES UNA HOJA
-                if (nodoBuscado.getLeft() == null && nodoBuscado.getRight() == null && nodoBuscado.getValue() == num) {
-                    root.setLeft(null);
-                    return true;
-                }
-
-                //EL NODO TIENE UN SOLO HIJO
-                if (nodoBuscado.getRight() == null && nodoBuscado.getLeft() != null) {
-                    root.setLeft(nodoBuscado.getLeft());
-                    return true;
-                } else if (nodoBuscado.getRight() != null && nodoBuscado.getLeft() == null) {
-                    root.setLeft(nodoBuscado.getRight());
-                    return true;
-                }
-
-                //EL NODO TIENE LOS DOS HIJOS
-                if (padre.getRight() != null && padre.getLeft() != null && padre.getLeft().getValue() == num) {
-                    TreeNode padreSubArbDer = padre.getLeft().getRight();
-                    TreeNode helper = padre.getLeft().getRight();
-
-                    //OBTENER EL NODO MAYOR IZQUIERDO DEL SUB ARBOL DERECHO
-                    while (helper.getLeft() != null) {
-                        TreeNode NMI = padreSubArbDer.getLeft();
-                        helper = NMI;
-                    }
-                    //ROOT = NODO MAYOR IZQUIERDO DEL SUB ARBOL DERECHO
-                    padreSubArbDer.setLeft(null);
-                    nodoBuscado.setRight(padreSubArbDer);
-                    nodoBuscado.setValue(helper.getValue());
-                    //BORRAR EL NODO MAS IZQUIERDO DEL SUBARBOL DERECHO DE SU LUGAR ORIGINAL.
-                    return true;
-                }
+                root.setValue(null);
+                return true;
             }
         }
+
+        //CASO 3: EL NODO TIENE 2 HIJOS
+        if (root.getValue() == num && root.getRight() != null && root.getLeft() != null) {
+            TreeNode raizSubArbolDerecho = root.getRight();
+            TreeNode NMISD = raizSubArbolDerecho;
+            while (NMISD.getLeft() != null) {
+                NMISD = NMISD.getLeft();
+            }
+            //EL NMISD ES HOJA
+            if (NMISD.getRight() == null && NMISD.getLeft() == null) {
+                root.setValue(NMISD.getValue());
+                NMISD.setValue(null);
+            }
+            //EL NMISD TIENE UN SOLO HIJO
+            if (NMISD.getRight() != null && NMISD.getLeft() == null) {
+                root.setValue(NMISD.getValue());
+                NMISD.setValue(NMISD.getRight().getValue());
+                NMISD.setRight(null);
+                return true;
+            }
+            return true;
+        }
+
+        //SI EL NODO ESTA A LA DERECHA
+        TreeNode rightNode = root.getRight();
+        if (rightNode != null && rightNode.getValue() == num || root.getValue() == num) {
+            //EL NODO TIENE UN SOLO HIJO
+            if (rightNode.getRight() != null && rightNode.getLeft() == null) {
+                root.setRight(rightNode.getRight());
+                return true;
+            } else if (rightNode.getRight() == null && rightNode.getLeft() != null) {
+                root.setRight(rightNode.getLeft());
+                return true;
+            }
+        }
+
+        //SI EL NODO ESTA A LA IZQUIERDA
+        TreeNode leftNode = root.getLeft();
+        if (leftNode != null && leftNode.getValue() == num) {
+            //EL NODO TIENE UN SOLO HIJO
+            if (leftNode.getRight() != null && leftNode.getLeft() == null) {
+                root.setLeft(leftNode.getRight());
+                return true;
+
+            } else if (leftNode.getRight() == null && leftNode.getLeft() != null) {
+                root.setLeft(leftNode.getLeft());
+                return true;
+            }
+        }
+
         //ITERO
         if (num > root.getValue())
             return delete(root.getRight(), num);
@@ -148,8 +124,6 @@ public class Tree {
             return delete(root.getLeft(), num);
         }
 
-        if (num == root.getValue())
-            return delete(root, num);
         return false;
     }
 
