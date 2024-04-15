@@ -45,12 +45,13 @@ public class Main {
         tree.add(2);
         tree.add(1);
         tree.add(4);
-        tree.add(14);
-        tree.add(10);
+        tree.add(20);
+        tree.add(22);
         tree.add(11);
-        tree.add(9);
+        tree.add(10);
         tree.add(7);
         tree.add(8);
+        //tree.add(9);
 
         System.out.println("RAIZ DEL ARBOL: " + tree.getRoot());
         System.out.println("¿ESTA VACIO?: " + tree.isEmpty());

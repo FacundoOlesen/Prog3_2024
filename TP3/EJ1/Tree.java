@@ -63,7 +63,6 @@ public class Tree {
         if (root.getValue() == num) {
             //EL NODO ES UNA HOJA
             if (root.getRight() == null && root.getLeft() == null) {
-                TreeNode padre = root;
                 root.setValue(null);
                 return true;
             }
@@ -99,8 +98,8 @@ public class Tree {
 
         //CASO 3: EL NODO TIENE 2 HIJOS
         if (root.getValue() == num && root.getRight() != null && root.getLeft() != null) {
-            TreeNode raizSubArbolDerecho = root.getRight();
-            TreeNode NMISD = raizSubArbolDerecho;
+            TreeNode NMISD = root.getRight();
+            TreeNode padreNMISD = NMISD;
             while (NMISD.getLeft() != null) {
                 NMISD = NMISD.getLeft();
             }
@@ -108,15 +107,16 @@ public class Tree {
             if (NMISD.getRight() == null && NMISD.getLeft() == null) {
                 root.setValue(NMISD.getValue());
                 NMISD.setValue(null);
+                return true;
             }
             //EL NMISD TIENE UN SOLO HIJO
             if (NMISD.getRight() != null && NMISD.getLeft() == null) {
+                TreeNode siguienteElemNMISD = NMISD.getRight();
                 root.setValue(NMISD.getValue());
-                NMISD.setValue(NMISD.getRight().getValue());
-                NMISD.setRight(null);
+                NMISD.setValue(siguienteElemNMISD.getValue()); // ELIMINO EL VALOR DEL NMISD Y EN SU LUGAR PONGO EL DEL ELEMENTO QUE LE SIGUE
+                NMISD.setRight(siguienteElemNMISD.getRight()); //AGREGO EL ELEMENTO A LA DERECHA (SI ES QUE TIENE) DEL ELEMENTO QUE LE SEGUIA AL NMSID
                 return true;
             }
-            return true;
         }
 
         //RECORRO NODOS
