@@ -5,17 +5,17 @@ public class Main {
     public static void main(String[] args) {
         MySimpleLinkedList<Integer> lista1 = new MySimpleLinkedList<>();
         lista1.insertFront(22);
-        lista1.insertFront(12);
         lista1.insertFront(1);
-        lista1.insertFront(8);
-        lista1.insertFront(7);
+        lista1.insertFront(44);
+        lista1.insertFront(2);
+        lista1.insertFront(4);
 
 
         MySimpleLinkedList<Integer> lista2 = new MySimpleLinkedList<>();
-        lista2.insertFront(11);
-        lista2.insertFront(22);
+        lista2.insertFront(44);
         lista2.insertFront(3);
-        lista2.insertFront(12);
+        lista2.insertFront(22);
+        lista2.insertFront(1);
         lista2.insertFront(2);
 
 

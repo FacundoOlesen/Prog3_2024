@@ -1,7 +1,7 @@
 package TP1.EJ5.EJ5B;
 
 
-public class MySimpleLinkedList<T> implements Iterable<T> {
+public class MySimpleLinkedList<T extends Comparable<T>> implements Iterable<T> {
     private Node<T> first;
     private int size;
 
@@ -29,8 +29,7 @@ public class MySimpleLinkedList<T> implements Iterable<T> {
     }
 
     public T get(int index) {
-        if (index < 0 || index > size)
-            return null;
+        if (index < 0 || index > size) return null;
         Node<T> tmp = this.first;
         for (int i = 0; i < index; i++)
             tmp = tmp.getNext();
@@ -79,5 +78,26 @@ public class MySimpleLinkedList<T> implements Iterable<T> {
         return new MyIterator<>(this.first);
     }
 
+    public void bubbleSortAdapt(TP1.EJ5.EJ5B.MySimpleLinkedList<T> listaResultante) {
+        boolean swapped = true;
+        int j = 0;
+        T tmp;
+        TP1.EJ5.EJ5B.Node<T> actual = listaResultante.getFirst();
+        while (swapped) {
+            swapped = false;
+            for (int i = 0; i < size; i++) {
+                actual = listaResultante.getFirst();
+                while (actual.getNext() != null) {
+                    if (actual.getInfo().compareTo(actual.getNext().getInfo()) > 0) {
+                        tmp = actual.getInfo();
+                        actual.setInfo(actual.getNext().getInfo());
+                        actual.getNext().setInfo(tmp);
+                        swapped = true;
+                    }
+                    actual = actual.getNext();
+                }
+            }
+        }
+    }
 
 }

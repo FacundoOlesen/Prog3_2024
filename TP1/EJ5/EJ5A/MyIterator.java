@@ -2,7 +2,7 @@ package TP1.EJ5.EJ5A;
 
 import java.util.Iterator;
 
-public class MyIterator<T> implements Iterator<T> {
+public class MyIterator<T>  implements Iterator<T> {
 
     private Node<T> cursor;
 

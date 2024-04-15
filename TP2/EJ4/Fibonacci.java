@@ -2,17 +2,24 @@ package TP2.EJ4;
 
 public class Fibonacci {
     public static void main(String[] args) {
-        String res = "0 1";
-        System.out.println(fibonacci(2, 20, 0, 1, res));
+        System.out.println(fibonacci(11));
     }
 
-    public static String fibonacci(int cant, int N, int anterior, int siguiente, String res) {
+    public static String fibonacci(int N) {
+        int cant = 2;
+        int anterioranterior = 0;
+        int anterior = 1;
+        String res = String.valueOf(anterioranterior) + " " + String.valueOf(anterior);
+        return doFibonacci(cant, N, anterioranterior, anterior, res);
+    }
+
+    private static String doFibonacci(int cant, int N, int anterioranterior, int anterior, String res) {
         if (cant < N) {
-            int suma = siguiente + anterior;
-            anterior = siguiente;
-            siguiente = suma;
+            int suma = anterior + anterioranterior;
+            anterioranterior = anterior;
+            anterior = suma;
             cant++;
-            res = fibonacci(cant, N, anterior, siguiente, res + " " + String.valueOf(suma));
+            res = doFibonacci(cant, N, anterioranterior, anterior, res + " " + String.valueOf(suma));
         }
         return res;
     }

@@ -41,6 +41,7 @@ public class Main {
                 it2.next();
             }
         }
+        lista3.bubbleSortAdapt(lista3);
         System.out.println(lista3);
     }
 

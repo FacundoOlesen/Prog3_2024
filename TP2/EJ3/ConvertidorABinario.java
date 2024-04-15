@@ -6,10 +6,12 @@ public class ConvertidorABinario {
         System.out.println("El numero: " + numeroAConvertir + " en binario es: " + convertirABinario(numeroAConvertir, ""));
     }
 
-    public static String convertirABinario(int num, String res) {
+    public static String convertirABinario(int num, String resultado) {
+        int cociente = (num / 2);
+        String resto = String.valueOf(num % 2) + resultado;
         if (num >= 1) {
-            res = convertirABinario((num / 2), String.valueOf(num % 2)) +res;
+            resultado = convertirABinario(cociente, resto);
         }
-        return res;
+        return resultado;
     }
 }
