@@ -80,17 +80,19 @@ public class Tree {
                     return true;
                 }
                 //EL NODO TIENE LOS DOS HIJOS
-                if (padre.getRight() != null && padre.getLeft() != null && padre.getValue() == num) {
-                    TreeNode padreSubArbDer = padre.getRight();
+                if (padre.getRight() != null && padre.getLeft() != null && padre.getRight().getValue() == num) {
+                    TreeNode padreSubArbDer = padre.getRight().getRight();
                     //OBTENER EL NODO MAYOR IZQUIERDO DEL SUB ARBOL DERECHO
                     while (padreSubArbDer.getLeft() != null) {
                         TreeNode NMI = padreSubArbDer.getLeft();
                         padreSubArbDer = NMI;
                     }
                     //ROOT = NODO MAYOR IZQUIERDO DEL SUB ARBOL DERECHO
-                    padre.setValue(padreSubArbDer.getValue());
+                    nodoBuscado.setRight(padreSubArbDer.getRight());
+                    nodoBuscado.setValue(padreSubArbDer.getValue());
+
                     //BORRAR EL NODO MAS IZQUIERDO DEL SUBARBOL DERECHO DE SU LUGAR ORIGINAL.
-                    padreSubArbDer.setValue(null);
+
                     return true;
                 }
             }
@@ -120,17 +122,20 @@ public class Tree {
                 }
 
                 //EL NODO TIENE LOS DOS HIJOS
-                if (padre.getRight() != null && padre.getLeft() != null && padre.getValue() == num) {
-                    TreeNode padreSubArbDer = padre.getRight();
+                if (padre.getRight() != null && padre.getLeft() != null && padre.getLeft().getValue() == num) {
+                    TreeNode padreSubArbDer = padre.getLeft().getRight();
+                    TreeNode helper = padre.getLeft().getRight();
+
                     //OBTENER EL NODO MAYOR IZQUIERDO DEL SUB ARBOL DERECHO
-                    while (padreSubArbDer.getLeft() != null) {
+                    while (helper.getLeft() != null) {
                         TreeNode NMI = padreSubArbDer.getLeft();
-                        padreSubArbDer = NMI;
+                        helper = NMI;
                     }
                     //ROOT = NODO MAYOR IZQUIERDO DEL SUB ARBOL DERECHO
-                    padre.setValue(padreSubArbDer.getValue());
+                    padreSubArbDer.setLeft(null);
+                    nodoBuscado.setRight(padreSubArbDer);
+                    nodoBuscado.setValue(helper.getValue());
                     //BORRAR EL NODO MAS IZQUIERDO DEL SUBARBOL DERECHO DE SU LUGAR ORIGINAL.
-                    padreSubArbDer.setValue(null);
                     return true;
                 }
             }
