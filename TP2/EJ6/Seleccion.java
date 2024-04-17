@@ -2,7 +2,7 @@ package TP2.EJ6;
 
 public class Seleccion {
     public static void main(String[] args) {
-        int[] arr = {2, 3, 12, 2};
+        int[] arr = {2, 7, 3, 4};
         seleccion(arr);
     }
 

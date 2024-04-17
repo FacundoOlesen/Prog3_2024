@@ -6,7 +6,7 @@ public class QuickSort {
         quickSort(arr, 0, arr.length);
     }
 
-    public static void quickSort(int arr[], int ini, int fin) {
+    public static void quickSort(int[] arr, int ini, int fin) {
         if (ini >= fin) return;
         int pivote = arr[ini];
         int elemIzq = ini + 1;
