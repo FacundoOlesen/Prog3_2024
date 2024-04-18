@@ -55,20 +55,24 @@ public class Tree {
         return this.root == null;
     }
 
-    public boolean delete(TreeNode root, Integer num) {
-        if (!this.hasElem(root, num))
+    public boolean delete(Integer num) {
+        return delete(this.root, num);
+    }
+
+    private boolean delete(TreeNode root, Integer num) {
+        if (this.root == null || !this.hasElem(root, num))
             return false;
 
         //SI EL NODO A ELIMINAR ESTA A LA DERECHA:
         TreeNode rightNode = root.getRight();
         if (rightNode != null && rightNode.getValue() == num) {
-            //CASO 1: EL NODO ES UNA HOJA
+            //CASO 1: EL NODO A ELIMINAR ES UNA HOJA
             if (rightNode.getRight() == null && rightNode.getLeft() == null) {
                 root.setRight(null);
                 return true;
             }
 
-            //CASO 2: EL NODO TIENE UN SOLO HIJO
+            //CASO 2: EL NODO A ELIMINAR TIENE UN SOLO HIJO
             if (rightNode.getRight() != null && rightNode.getLeft() == null) {
                 root.setRight(rightNode.getRight());
                 return true;
@@ -77,39 +81,27 @@ public class Tree {
                 return true;
             }
 
-            //CASO 3: EL NODO TIENE 2 HIJOS
+            //CASO 3: EL NODO A ELIMINAR TIENE 2 HIJOS
             if (rightNode.getRight() != null && rightNode.getLeft() != null) {
                 TreeNode NMISD = rightNode.getRight();
                 while (NMISD.getLeft() != null) {
                     NMISD = NMISD.getLeft();
                 }
-                //EL NMISD ES HOJA
-                if (NMISD.getRight() == null && NMISD.getLeft() == null) {
-                    rightNode.setValue(NMISD.getValue());
-                    rightNode.setRight(null);
-                    return true;
-                }
-                //EL NMISD TIENE UN SOLO HIJO
-                if (NMISD.getRight() != null && NMISD.getLeft() == null) {
-                    TreeNode siguienteElemNMISD = NMISD.getRight();
-                    rightNode.setValue(NMISD.getValue());
-                    NMISD.setValue(siguienteElemNMISD.getValue()); // ELIMINO EL VALOR DEL NMISD Y EN SU LUGAR PONGO EL DEL ELEMENTO QUE LE SIGUE
-                    NMISD.setRight(siguienteElemNMISD.getRight()); //AGREGO EL ELEMENTO A LA DERECHA (SI ES QUE TIENE) DEL ELEMENTO QUE LE SEGUIA AL NMSID
-                    return true;
-                }
+                rightNode.setValue(NMISD.getValue());
+                delete(rightNode, NMISD.getValue());
             }
         }
 
         //SI EL NODO A ELIMINAR ESTA A LA IZQUIERDA:
         TreeNode leftNode = root.getLeft();
         if (leftNode != null && leftNode.getValue() == num) {
-            //CASO 1: EL NODO ES UNA HOJA
+            //CASO 1: EL NODO A ELIMINAR ES UNA HOJA
             if (leftNode.getRight() == null && leftNode.getLeft() == null) {
                 root.setLeft(null);
                 return true;
             }
 
-            //CASO 2: EL NODO TIENE UN SOLO HIJO
+            //CASO 2: EL NODO A ELIMINAR TIENE UN SOLO HIJO
             if (leftNode.getRight() != null && leftNode.getLeft() == null) {
                 root.setLeft(leftNode.getRight());
                 return true;
@@ -118,30 +110,18 @@ public class Tree {
                 root.setLeft(leftNode.getLeft());
                 return true;
             }
-            //CASO 3: EL NODO TIENE 2 HIJOS
+            //CASO 3: EL NODO A ELIMINAR TIENE 2 HIJOS
             if (leftNode.getRight() != null && leftNode.getLeft() != null) {
                 TreeNode NMISD = leftNode.getRight();
                 while (NMISD.getLeft() != null) {
                     NMISD = NMISD.getLeft();
                 }
-                //EL NMISD ES HOJA
-                if (NMISD.getRight() == null && NMISD.getLeft() == null) {
-                    leftNode.setValue(NMISD.getValue());
-                    leftNode.setRight(null);
-                    return true;
-                }
-                //EL NMISD TIENE UN SOLO HIJO
-                if (NMISD.getRight() != null && NMISD.getLeft() == null) {
-                    TreeNode siguienteElemNMISD = NMISD.getRight();
-                    leftNode.setValue(NMISD.getValue());
-                    NMISD.setValue(siguienteElemNMISD.getValue()); // ELIMINO EL VALOR DEL NMISD Y EN SU LUGAR PONGO EL DEL ELEMENTO QUE LE SIGUE
-                    NMISD.setRight(siguienteElemNMISD.getRight()); //AGREGO EL ELEMENTO A LA DERECHA (SI ES QUE TIENE) DEL ELEMENTO QUE LE SEGUIA AL NMSID
-                    return true;
-                }
+
+                leftNode.setValue(NMISD.getValue());
+                delete(leftNode, NMISD.getValue());
+                return true;
             }
-
         }
-
 
         //RECORRO NODOS
         if (num > root.getValue())

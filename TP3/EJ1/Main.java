@@ -61,7 +61,7 @@ public class Main {
         System.out.println("RAIZ DEL ARBOL: " + tree.getRoot());
         System.out.println("¿ESTA VACIO?: " + tree.isEmpty());
         System.out.println("ESTA EL NUM? " + tree.hasElem(tree.getRootNode(), 3));
-        System.out.println("ELIMINADO: " + tree.delete(tree.getRootNode(), 20));
+        System.out.println("ELIMINADO: " + tree.delete(20));
         tree.print2D(tree.getRootNode());
     }
 }
