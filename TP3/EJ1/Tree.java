@@ -32,15 +32,15 @@ public class Tree {
         }
     }
 
-    public TreeNode getRootNode() {
-        return this.root;
-    }
-
     public Integer getRoot() {
         return this.root.getValue();
     }
 
-    public boolean hasElem(TreeNode numAComparar, Integer elem) {
+    public boolean hasElem(Integer elem) {
+        return hasElem(this.root, elem);
+    }
+
+    private boolean hasElem(TreeNode numAComparar, Integer elem) {
         if (numAComparar == null) return false;
         if (elem > numAComparar.getValue()) {
             return hasElem(numAComparar.getRight(), elem);
@@ -60,8 +60,7 @@ public class Tree {
     }
 
     private boolean delete(TreeNode root, Integer num) {
-        if (this.root == null || !this.hasElem(root, num))
-            return false;
+        if (this.root == null || !this.hasElem(root, num)) return false;
 
         //SI EL NODO A ELIMINAR ESTA A LA DERECHA:
         TreeNode rightNode = root.getRight();
@@ -119,7 +118,6 @@ public class Tree {
 
                 leftNode.setValue(NMISD.getValue());
                 delete(leftNode, NMISD.getValue());
-                return true;
             }
         }
 
@@ -132,6 +130,19 @@ public class Tree {
         }
 
         return false;
+    }
+
+
+    public int getHeight(TreeNode root) {
+        int rightHeight = 0;
+        int leftHeight = 0;
+        if (root.getRight() != null) {
+            rightHeight += getHeight(root.getRight());
+        }
+        if (root.getLeft() != null) {
+            leftHeight += getHeight(root.getLeft());
+        }
+        return rightHeight + 1;
     }
 
 
@@ -163,4 +174,7 @@ public class Tree {
         print2DUtil(root, 0);
     }
 
+    public TreeNode getRootNode() {
+        return root;
+    }
 }
