@@ -60,7 +60,8 @@ public class Tree {
     }
 
     private boolean delete(TreeNode root, Integer num) {
-        if (this.root == null || !this.hasElem(root, num)) return false;
+        if (root == null)
+            return false;
 
         //SI EL NODO A ELIMINAR ESTA A LA DERECHA:
         TreeNode rightNode = root.getRight();
@@ -88,6 +89,7 @@ public class Tree {
                 }
                 rightNode.setValue(NMISD.getValue());
                 delete(rightNode, NMISD.getValue());
+                return true;
             }
         }
 
@@ -118,6 +120,38 @@ public class Tree {
 
                 leftNode.setValue(NMISD.getValue());
                 delete(leftNode, NMISD.getValue());
+                return true;
+            }
+
+
+        }
+        //SI EL NODO A ELIMINAR ES LA RAIZ:
+        if (root != null && root.getValue() == num) {
+            //CASO 1: LA RAIZ ES UNA HOJA
+            if (root.getRight() == null && root.getLeft() == null) {
+                this.root = null;
+                return true;
+            }
+
+            //CASO 2: LA RAIZ TIENE UN SOLO HIJO
+            if (root.getRight() != null && root.getLeft() == null) {
+                this.root = root.getRight();
+                return true;
+
+            } else if (root.getRight() == null && root.getLeft() != null) {
+                this.root = root.getLeft();
+                return true;
+            }
+            //CASO 3: LA RAIZ TIENE 2 HIJOS
+            if (root.getRight() != null && root.getLeft() != null) {
+                TreeNode NMISD = root.getRight();
+                while (NMISD.getLeft() != null) {
+                    NMISD = NMISD.getLeft();
+                }
+
+                root.setValue(NMISD.getValue());
+                delete(root, NMISD.getValue());
+                return true;
             }
         }
 
