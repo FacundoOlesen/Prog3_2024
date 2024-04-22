@@ -1,4 +1,4 @@
-package TP3.EJ1;
+package TP3.EJ2;
 
 public class TreeNode {
     private Integer value;
@@ -28,9 +28,6 @@ public class TreeNode {
         this.right = right;
     }
 
-    public void setValue(Integer value) {
-        this.value = value;
-    }
 
     public Integer getValue() {
         return value;
