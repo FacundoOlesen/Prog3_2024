@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tree {
-    public static final int K = 8;
     private TreeNode root;
 
     public Tree() {
@@ -34,13 +33,13 @@ public class Tree {
         }
     }
 
-    public List<Integer> getValoresMayoresAK() {
+    public List<Integer> getValoresMayoresAK(int K) {
         ArrayList<Integer> res = new ArrayList<>();
-        getValoresMayoresAK(this.root, res);
+        getValoresMayoresAK(this.root, K, res);
         return res;
     }
 
-    private void getValoresMayoresAK(TreeNode node, ArrayList<Integer> res) {
+    private void getValoresMayoresAK(TreeNode node, int K, ArrayList<Integer> res) {
         if (node != null) {
             if (node.getValue() > K && node.getRight() == null && node.getLeft() == null)
                 res.add(node.getValue());
@@ -48,14 +47,11 @@ public class Tree {
             if (node.getLeft() == null && node.getRight() == null)
                 return;
 
-            if (node.getValue() > K) {
-                getValoresMayoresAK(node.getLeft(), res);
-            }
+            if (node.getValue() > K)
+                getValoresMayoresAK(node.getLeft(), K, res);
 
-            if (node.getValue() <= K || node.getRight() != null) {
-                getValoresMayoresAK(node.getRight(), res);
-            }
-
+            if (node.getValue() <= K || node.getRight() != null)
+                getValoresMayoresAK(node.getRight(), K, res);
         }
 
     }

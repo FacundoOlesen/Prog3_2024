@@ -15,6 +15,6 @@ public class Main {
         tree.add(9);
         tree.add(11);
 
-        System.out.println("LOS VALORES MAYORES A K SON: " + tree.getValoresMayoresAK());
+        System.out.println("LOS VALORES MAYORES A K SON: " + tree.getValoresMayoresAK(3));
     }
 }

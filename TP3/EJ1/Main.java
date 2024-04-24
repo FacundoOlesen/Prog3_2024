@@ -67,7 +67,7 @@ public class Main {
         tree.printPostOrder();
         System.out.println("RAMA MAS LARGA DEL ARBOL: " + tree.getLongestBranch());
         System.out.println("NUMERO MAYOR DEL ARBOL: " + tree.getMaxElem());
-        System.out.println("NUMEROS EN EL NIVEL: " + tree.getElemAtLevel(0));
+        System.out.println("NUMEROS EN EL NIVEL: " + tree.getElemAtLevel(2));
         System.out.println("NUMEROS FRONTERA DEL ARBOL: " + tree.getFrontera());
         //tree.print2D(tree.getRootNode());
     }
