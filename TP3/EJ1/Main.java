@@ -37,6 +37,7 @@ public class Main {
         tree.add(15);
         tree.add(14);
         tree.add(16);
+        tree.add(17);
 
 
 

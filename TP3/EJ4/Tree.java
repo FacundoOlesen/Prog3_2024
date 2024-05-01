@@ -18,10 +18,10 @@ public class Tree {
 
     private int fillNodes(TreeNode node) {
         if (node.getLeft() == null && node.getRight() != null)
-            node.setValue(node.getRight().getValue());
+            node.setValue(fillNodes(node.getRight()));
 
         if (node.getRight() == null && node.getLeft() != null)
-            node.setValue(node.getLeft().getValue());
+            node.setValue(-fillNodes(node.getLeft()));
 
         if (node.getLeft() != null && node.getRight() != null)
             node.setValue(fillNodes(node.getRight()) - fillNodes(node.getLeft()));

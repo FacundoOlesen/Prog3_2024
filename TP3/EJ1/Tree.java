@@ -11,10 +11,8 @@ public class Tree {
     }
 
     public void add(Integer value) {
-        if (this.root == null)
-            this.root = new TreeNode(value);
-        else
-            this.add(this.root, value);
+        if (this.root == null) this.root = new TreeNode(value);
+        else this.add(this.root, value);
     }
 
     private void add(TreeNode actual, Integer value) {
@@ -46,11 +44,9 @@ public class Tree {
 
     private boolean hasElem(TreeNode numAComparar, Integer elem) {
         if (numAComparar == null) return false;
-        if (elem > numAComparar.getValue())
-            return hasElem(numAComparar.getRight(), elem);
+        if (elem > numAComparar.getValue()) return hasElem(numAComparar.getRight(), elem);
 
-        else if (elem < numAComparar.getValue())
-            return hasElem(numAComparar.getLeft(), elem);
+        else if (elem < numAComparar.getValue()) return hasElem(numAComparar.getLeft(), elem);
 
         return elem == numAComparar.getValue();
     }
@@ -65,8 +61,7 @@ public class Tree {
     }
 
     private boolean delete(TreeNode root, Integer num) {
-        if (root == null)
-            return false;
+        if (root == null) return false;
         //SI EL NODO A ELIMINAR ESTA A LA DERECHA:
         TreeNode rightNode = root.getRight();
         if (rightNode != null && rightNode.getValue() == num) {
@@ -162,35 +157,28 @@ public class Tree {
         }
 
         //RECORRO NODOS
-        if (num > root.getValue())
-            return delete(root.getRight(), num);
+        if (num > root.getValue()) return delete(root.getRight(), num);
 
-        if (num < root.getValue())
-            return delete(root.getLeft(), num);
+        if (num < root.getValue()) return delete(root.getLeft(), num);
 
         return false;
     }
 
     public int getHeight() {
-        if (root == null || (root.getRight() == null && root.getLeft() == null))
-            return 0;
+        if (root == null || (root.getRight() == null && root.getLeft() == null)) return 0;
         return getHeight(this.root);
     }
 
     private int getHeight(TreeNode root) {
         int rightHeight = 0;
         int leftHeight = 0;
-        if (root.getLeft() != null)
-            leftHeight = getHeight(root.getLeft()) + 1;
+        if (root.getLeft() != null) leftHeight = getHeight(root.getLeft());
 
-        if (root.getRight() != null)
-            rightHeight = getHeight(root.getRight()) + 1;
+        if (root.getRight() != null) rightHeight = getHeight(root.getRight());
 
-        if (leftHeight > rightHeight)
-            return leftHeight;
+        if (leftHeight > rightHeight) return leftHeight + 1;
 
-        else
-            return rightHeight;
+        else return rightHeight + 1;
     }
 
     public void printPostOrder() {
@@ -248,19 +236,24 @@ public class Tree {
     private List<Integer> getLongestBranch(TreeNode node) {
         ArrayList<Integer> ramaIzq = new ArrayList<>();
         ArrayList<Integer> ramaDer = new ArrayList<>();
+        if (node != null) {
 
-        ramaIzq.add(node.getValue());
-        if (node.getLeft() != null)
-            ramaIzq.addAll(getLongestBranch(node.getLeft()));
+            ramaIzq.add(node.getValue());
+            if (node.getLeft() != null) {
+                ramaIzq.addAll(getLongestBranch(node.getLeft()));
+            }
 
-        ramaDer.add(node.getValue());
-        if (node.getRight() != null)
-            ramaDer.addAll(getLongestBranch(node.getRight()));
+            ramaDer.add(node.getValue());
+            if (node.getRight() != null)
+                ramaDer.addAll(getLongestBranch(node.getRight()));
 
-        if (ramaIzq.size() >= ramaDer.size())
-            return ramaIzq;
-        else if (ramaDer.size() > ramaIzq.size()) {
-            return ramaDer;
+            if (ramaIzq.size() >= ramaDer.size())
+                return ramaIzq;
+
+            else if (ramaDer.size() > ramaIzq.size()) {
+                return ramaDer;
+            }
+
         }
         return new ArrayList<>();
     }
@@ -282,7 +275,7 @@ public class Tree {
         return res;
     }
 
-    private List<Integer> getElemAtLevel(TreeNode node, int level, int cant, ArrayList<Integer> res) {
+    private void getElemAtLevel(TreeNode node, int level, int cant, ArrayList<Integer> res) {
         if (cant == level)
             res.add(node.getValue());
         if (cant <= level) {
@@ -290,22 +283,21 @@ public class Tree {
             getElemAtLevel(node.getRight(), level, cant + 1, res);
         }
 
-        return res;
     }
 
     public List<Integer> getFrontera() {
-        return getFrontera(this.root);
+        ArrayList<Integer> res = new ArrayList<>();
+        getFrontera(this.root, res);
+        return res;
     }
 
-    private List<Integer> getFrontera(TreeNode node) {
-        ArrayList<Integer> res = new ArrayList<>();
+    private void getFrontera(TreeNode node, ArrayList<Integer> res) {
         if (node != null) {
             if (node.getLeft() == null && node.getRight() == null) {
                 res.add(node.getValue());
             }
-            res.addAll(getFrontera(node.getLeft()));
-            res.addAll(getFrontera(node.getRight()));
+            getFrontera(node.getLeft(), res);
+            getFrontera(node.getRight(), res);
         }
-        return res;
     }
 }
