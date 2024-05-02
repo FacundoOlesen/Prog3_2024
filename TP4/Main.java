@@ -18,5 +18,8 @@ public class Main {
         Float etiqueta = grafito.obtenerArco(1, 2).getEtiqueta();
 
         System.out.println(etiqueta); // Debería imprimir 3
+
+        grafito.borrarArco(1, 2);
+        System.out.println("hola");
     }
 }
