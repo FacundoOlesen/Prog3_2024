@@ -1,4 +1,4 @@
-package TP4;
+package TP4.EJ1;
 
 /*
  * La clase arco representa un arco del grafo. Contiene un vertice origen, un vertice destino y una etiqueta.
@@ -10,6 +10,15 @@ public class Arco<T> {
     private int verticeOrigen;
     private int verticeDestino;
     private T etiqueta;
+
+    @Override
+    public String toString() {
+        return "Arco{" +
+                "verticeOrigen=" + verticeOrigen +
+                ", verticeDestino=" + verticeDestino +
+                ", etiqueta=" + etiqueta +
+                '}';
+    }
 
     public Arco(int verticeOrigen, int verticeDestino, T etiqueta) {
         this.verticeOrigen = verticeOrigen;

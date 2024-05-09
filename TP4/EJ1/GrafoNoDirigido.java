@@ -1,4 +1,4 @@
-package TP4;
+package TP4.EJ1;
 
 public class GrafoNoDirigido<T> extends GrafoDirigido<T> {
 

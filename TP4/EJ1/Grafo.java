@@ -1,4 +1,4 @@
-package TP4;
+package TP4.EJ1;
 
 import java.util.Iterator;
 
