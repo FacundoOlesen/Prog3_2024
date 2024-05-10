@@ -5,10 +5,8 @@ import TP4.EJ1.GrafoDirigido;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
 
 public class DFS {
-    private Grafo<Integer> grafo;
     private static final String BLANCO = "BLANCO";
     private static final String AMARILLO = "AMARILLO";
     private static final String NEGRO = "NEGRO";
@@ -33,13 +31,16 @@ public class DFS {
 
     }
 
-    public void DFS_Visit(Grafo<Integer> grafo, Integer vertice) {
+    private void DFS_Visit(Grafo<Integer> grafo, Integer vertice) {
         verticesColores.put(vertice, AMARILLO);
         Iterator<Integer> itAdyacentes = grafo.obtenerAdyacentes(vertice);
         while (itAdyacentes.hasNext()) {
             int next = itAdyacentes.next();
-            if (verticesColores.get(next) == BLANCO)
+            if (verticesColores.get(next) == BLANCO)  //ARCO TREE
                 DFS_Visit(grafo, next);
+            else if (verticesColores.get(next) == AMARILLO) { //ARCO BACK
+                System.out.println("Arco Back! (Hay un ciclo)"); //EJ 3
+            }
         }
         verticesColores.put(vertice, NEGRO);
     }
