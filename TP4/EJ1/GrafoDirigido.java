@@ -24,14 +24,16 @@ public class GrafoDirigido<T> implements Grafo<T> {
     @Override
     public void borrarVertice(int verticeId) {
         if (this.contieneVertice(verticeId)) {
-            ArrayList<Arco<T>> arcosABorrar = new ArrayList<>(vertices.get(verticeId));
-            for (int i = 0; i < arcosABorrar.size(); i++) {
-                Arco<T> arcoHijo = arcosABorrar.get(i);
-                if (arcoHijo.getVerticeDestino() == verticeId) {
-                    vertices.get(i).remove(arcoHijo);
-                    cantArcos--;
+            ArrayList<Arco<T>> arcosABorrar = new ArrayList<>();
+            vertices.forEach((key, value) -> {
+                for (int i = 0; i < value.size(); i++) {
+                    Arco<T> valor = value.get(i);
+                    if (valor.getVerticeDestino() == verticeId) {
+                        vertices.remove(valor);
+                        cantArcos--;
+                    }
                 }
-            }
+            });
             vertices.remove(verticeId);
             cantVertices--;
         }
