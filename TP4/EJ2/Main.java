@@ -10,7 +10,7 @@ public class Main {
 
         // Genero un arco desde 1 hasta 2 con el valor de etiqueta 3
         grafito.agregarArco(1, 2, 3);
-        DFS dfs = new DFS();
+        ServicioDFS dfs = new ServicioDFS();
         dfs.DFS(grafito);
     }
 }

@@ -1,6 +1,5 @@
 package TP1.EJ1;
 
-import java.util.LinkedList;
 
 public class MySimpleLinkedList<T> {
     private Node<T> first;

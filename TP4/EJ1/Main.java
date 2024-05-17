@@ -13,17 +13,23 @@ public class Main {
         grafito.agregarVertice(1);
         grafito.agregarVertice(2);
 
+
         // Genero un arco desde 1 hasta 2 con el valor de etiqueta 3
         grafito.agregarArco(1, 2, 3F);
         grafito.agregarArco(1, 3, 5F);
+        grafito.agregarArco(2, 1, 5F);
+        grafito.agregarArco(12, 1, 5F);
 
+        System.out.println("OBTENGO ARCO: " + grafito.obtenerArco(1, 3));
+        //grafito.borrarVertice(1);
+        grafito.borrarVertice(321);
+
+        //grafito.borrarArco(1, 2);
         // Obtengo el arco entre 1 y 2, y le pido la etiqueta
-        Float etiqueta = grafito.obtenerArco(1, 2).getEtiqueta();
 
-        System.out.println(etiqueta); // Debería imprimir 3
 
         System.out.println("CONTIENE VERTICE?: " + grafito.contieneVertice(1));
-        System.out.println("EXISTE ARCO?: " + grafito.existeArco(1, 2));
+        System.out.println("EXISTE ARCO?: " + grafito.existeArco(1, 3));
         System.out.println("OBTENGO ARCO: " + grafito.obtenerArco(1, 2));
 
 
@@ -47,8 +53,7 @@ public class Main {
         while (itArcosDesdeVertice.hasNext())
             System.out.println(itArcosDesdeVertice.next());
 
-        grafito.borrarVertice(321);
-        grafito.borrarArco(1, 2);
+
 
     }
 }

@@ -237,7 +237,6 @@ public class Tree {
         ArrayList<Integer> ramaIzq = new ArrayList<>();
         ArrayList<Integer> ramaDer = new ArrayList<>();
         if (node != null) {
-
             ramaIzq.add(node.getValue());
             if (node.getLeft() != null) {
                 ramaIzq.addAll(getLongestBranch(node.getLeft()));

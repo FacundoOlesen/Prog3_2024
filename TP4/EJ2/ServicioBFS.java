@@ -4,18 +4,18 @@ import TP4.EJ1.Grafo;
 
 import java.util.*;
 
-public class BFS {
+public class ServicioBFS {
     private HashMap<Integer, String> visitaVertices;
     private Queue<Integer> colaVertices;
     private static final String VISITADO = "VISITADO";
     private static final String NO_VISITADO = "NO_VISITADO";
 
-    public BFS() {
+    public ServicioBFS() {
         this.visitaVertices = new HashMap<>();
         this.colaVertices = new LinkedList<>();
     }
 
-    public BFS(Grafo<Integer> grafo) {
+    public ServicioBFS(Grafo<Integer> grafo) {
         Iterator<Integer> itVertices = grafo.obtenerVertices();
         colaVertices.clear();
         while (itVertices.hasNext())

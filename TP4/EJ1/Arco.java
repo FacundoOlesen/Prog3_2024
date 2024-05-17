@@ -11,15 +11,6 @@ public class Arco<T> {
     private int verticeDestino;
     private T etiqueta;
 
-    @Override
-    public String toString() {
-        return "Arco{" +
-                "verticeOrigen=" + verticeOrigen +
-                ", verticeDestino=" + verticeDestino +
-                ", etiqueta=" + etiqueta +
-                '}';
-    }
-
     public Arco(int verticeOrigen, int verticeDestino, T etiqueta) {
         this.verticeOrigen = verticeOrigen;
         this.verticeDestino = verticeDestino;
@@ -36,6 +27,15 @@ public class Arco<T> {
 
     public T getEtiqueta() {
         return etiqueta;
+    }
+
+    @Override
+    public String toString() {
+        return "Arco{" +
+                "verticeOrigen=" + verticeOrigen +
+                ", verticeDestino=" + verticeDestino +
+                ", etiqueta=" + etiqueta +
+                '}';
     }
 
 }

@@ -1,18 +1,17 @@
 package TP4.EJ2;
 
 import TP4.EJ1.Grafo;
-import TP4.EJ1.GrafoDirigido;
 
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class DFS {
+public class ServicioDFS {
     private static final String BLANCO = "BLANCO";
     private static final String AMARILLO = "AMARILLO";
     private static final String NEGRO = "NEGRO";
     private HashMap<Integer, String> verticesColores;
 
-    public DFS() {
+    public ServicioDFS() {
         this.verticesColores = new HashMap<>();
     }
 
