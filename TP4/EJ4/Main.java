@@ -21,8 +21,9 @@ public class Main {
         grafito.agregarArco(1, 6, 5);
         grafito.agregarArco(6, 7, 6);
         grafito.agregarArco(7, 5, 7);
+        grafito.agregarArco(5, 1, 7);
 
-        CaminoSimpleMayorLongitud algoritmo = new CaminoSimpleMayorLongitud(grafito);
+        CaminoSimpleMayorLongitud algoritmo = new CaminoSimpleMayorLongitud( grafito);
         System.out.println(algoritmo.caminoMasLargo(1,5));
     }
 }
