@@ -15,7 +15,7 @@ public class ServicioBFS {
         this.colaVertices = new LinkedList<>();
     }
 
-    public ServicioBFS(Grafo<Integer> grafo) {
+    public void BFS(Grafo<Integer> grafo) {
         Iterator<Integer> itVertices = grafo.obtenerVertices();
         colaVertices.clear();
         while (itVertices.hasNext())

@@ -13,6 +13,7 @@ public class Main {
         grafito.agregarVertice(6);
         grafito.agregarVertice(7);
         grafito.agregarVertice(15);
+        grafito.agregarVertice(22);
 
 
         grafito.agregarArco(1, 2, 1);
@@ -22,8 +23,12 @@ public class Main {
         grafito.agregarArco(1, 6, 5);
         grafito.agregarArco(6, 7, 6);
         grafito.agregarArco(7, 5, 7);
+        grafito.agregarArco(2, 5, 7);
+
+        //grafito.agregarArco(4, 1, 71);
+
 
         VerticesTerminanEnV v = new VerticesTerminanEnV(grafito);
-        System.out.println(v.verticesTerminanEnV(5));
+        System.out.println(v.verticesTerminanEnV(1));
     }
 }
