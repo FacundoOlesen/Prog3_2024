@@ -5,13 +5,12 @@ import TP4.EJ1.Grafo;
 import java.util.*;
 
 public class ServicioBFS {
-    private HashMap<Integer, String> visitaVertices;
+    private Set<Integer> visitados;
     private Queue<Integer> colaVertices;
-    private static final String VISITADO = "VISITADO";
-    private static final String NO_VISITADO = "NO_VISITADO";
+
 
     public ServicioBFS() {
-        this.visitaVertices = new HashMap<>();
+        this.visitados = new HashSet<>();
         this.colaVertices = new LinkedList<>();
     }
 
@@ -19,26 +18,26 @@ public class ServicioBFS {
         Iterator<Integer> itVertices = grafo.obtenerVertices();
         colaVertices.clear();
         while (itVertices.hasNext())
-            visitaVertices.put(itVertices.next(), NO_VISITADO);
+            visitados.add(itVertices.next());
 
         Iterator<Integer> itVertices2 = grafo.obtenerVertices();
         while (itVertices2.hasNext()) {
             int next = itVertices2.next();
-            if (visitaVertices.get(next) == NO_VISITADO)
+            if (!visitados.contains(next))
                 BFS(grafo, next);
         }
     }
 
-    private void BFS(Grafo<Integer> grafo, Integer vertice) {
-        visitaVertices.put(vertice, VISITADO);
-        colaVertices.add(vertice);
+    private void BFS(Grafo<Integer> grafo, Integer actual) {
+        visitados.add(actual);
+        colaVertices.add(actual);
         while (!colaVertices.isEmpty()) {
             int primerElem = colaVertices.remove();
             Iterator<Integer> itAdyacentesAElem = grafo.obtenerAdyacentes(primerElem);
             while (itAdyacentesAElem.hasNext()) {
                 int next = itAdyacentesAElem.next();
-                if (visitaVertices.get(next) == NO_VISITADO) {
-                    visitaVertices.put(next, VISITADO);
+                if (!visitados.contains(next)) {
+                    visitados.add(next);
                     colaVertices.add(next);
                 }
             }
