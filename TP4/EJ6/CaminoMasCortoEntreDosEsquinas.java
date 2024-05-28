@@ -22,34 +22,44 @@ public class CaminoMasCortoEntreDosEsquinas {
 
     public List<Integer> obtenerCaminoMasCortoEntreDosEsquinas(Integer origen, Integer destino) {
         colaVertices.clear();
-        Iterator<Integer> itVertices = grafo.obtenerVertices();
-        List<Integer> caminoParcial = new ArrayList<>();
-        //solucion.add(origen);
-        obtenerCaminoMasCortoEntreDosEsquinas(origen, destino, caminoParcial);
-        return solucion;
+        solucion.clear();
+
+        List<Integer> solucionParcial = new ArrayList<>();
+        solucion.add(origen);
+        visitados.add(origen);
+
+        return obtenerCaminoMasCortoEntreDosEsquinasPriv(origen, destino);
     }
 
-    private void obtenerCaminoMasCortoEntreDosEsquinas(Integer actual, Integer destino, List<Integer> solucionParcial) {
-        HashMap<Integer, Integer> padreHijos = new HashMap<>();
-        visitados.add(actual);
-        colaVertices.add(actual);
-        solucionParcial.add(actual);
+    private List<Integer> obtenerCaminoMasCortoEntreDosEsquinasPriv(Integer origen, Integer destino) {
+        //IR TOMANDO PADRE HIJO
+        //UNA VEZ QUE LLEGO AL DESTINO DEBO AGREGAR PADRE HIJO PARA ATRAS
+        HashMap<Integer, Integer> padreHijo = new HashMap<>();
+        visitados.add(origen);
+        colaVertices.add(origen);
         while (!colaVertices.isEmpty()) {
-            int primerVerticeCola = colaVertices.remove();
-            Iterator<Integer> itAdyacentesAprimerVerticeCola = grafo.obtenerAdyacentes(primerVerticeCola);
-            while (itAdyacentesAprimerVerticeCola.hasNext()) {
-                Integer next = itAdyacentesAprimerVerticeCola.next();
+            int primerElem = colaVertices.remove();
+            Iterator<Integer> itAdyacentesAElem = this.grafo.obtenerAdyacentes(primerElem);
+            while (itAdyacentesAElem.hasNext()) {
+                Integer next = itAdyacentesAElem.next();
+                padreHijo.put(next, primerElem);
+                padreHijo.put(primerElem, next);
+                if (next == destino) {
+                    for (int i = 0; i < solucion.size(); i++) {
+                        Integer padre = solucion.get(i);
+                        Integer hijo = padreHijo.get(padre);
+                        solucion.add(hijo);
+                        if (hijo == destino)
+                            return solucion;
+                    }
+                }
                 if (!visitados.contains(next)) {
                     visitados.add(next);
                     colaVertices.add(next);
-                    padreHijos.put(next, primerVerticeCola);
                 }
             }
         }
-        if (padreHijos.containsValue(destino)) {
-            solucion.add(padreHijos.get(destino));
-        }
-        System.out.println(padreHijos);
+        return new ArrayList<>();
     }
 
 

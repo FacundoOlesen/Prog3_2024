@@ -6,63 +6,68 @@ import java.util.*;
 
 public class VerticesTerminanEnV {
     private GrafoDirigido<?> grafo;
-    private static final String BLANCO = "BLANCO";
-    private static final String AMARILLO = "AMARILLO";
-    private static final String NEGRO = "NEGRO";
-    private HashMap<Integer, String> visitados;
-    private List<Integer> solucion;
+    private Set<Integer> visitados;
+    private HashSet<Integer> solucion;
 
     public VerticesTerminanEnV(GrafoDirigido<?> grafo) {
         this.grafo = grafo;
-        this.visitados = new HashMap<>();
-        this.solucion = new ArrayList<>();
+        this.visitados = new HashSet<>();
+        this.solucion = new HashSet<>();
     }
 
-    public List<Integer> verticesTerminanEnV(Integer v) {
-        return verticesTerminanEnV(null, v);
+    public HashSet<Integer> verticesTerminanEnV(Integer verticeDestino) {
+        return getVerticesTerminanEnV(verticeDestino);
     }
 
-    private List<Integer> verticesTerminanEnV(Integer sig, Integer v) { //INICIALIZO
-        ArrayList<Integer> solucionParcial = new ArrayList<>();
+    private HashSet<Integer> getVerticesTerminanEnV(Integer verticeDestino) {
+        //INICIALIZO
+        visitados = new HashSet<>();
+
         Iterator<Integer> itVertices = grafo.obtenerVertices();
         while (itVertices.hasNext()) {
-            visitados.put(itVertices.next(), BLANCO); //PONGO EN BLANCO TODOS LOS VERTICES
+            Integer next = itVertices.next();
+            visitados.add(next);
         }
+
         Iterator<Integer> itVertices2 = grafo.obtenerVertices();
         while (itVertices2.hasNext()) {
+            HashSet<Integer> res = new HashSet<>();
             Integer next = itVertices2.next();
-            if (visitados.get(next) == BLANCO) {
-                verticesTerminanEnV(next, v, solucionParcial);
-            }
+            res.add(next);
+            obtenerCamino(next, verticeDestino, res);
         }
+
+        solucion.remove(verticeDestino);
+        if (grafo.existeArco(verticeDestino, verticeDestino))
+            solucion.add(verticeDestino);
+
         return solucion;
     }
 
-    private void verticesTerminanEnV(Integer actual, Integer v, ArrayList<Integer> solucionParcial) {
-        //visitados.put(actual, AMARILLO);
+
+    private void obtenerCamino(Integer actual, Integer destino, HashSet<Integer> solucionParcial) {
+        visitados.remove(actual);
+
         //CONDICION DE CORTE
-        if (actual == v) {
+        if (actual == destino)
             solucion.addAll(solucionParcial);
-        }
         //GENERAR CANDIDATOS
         else {
             Iterator<Integer> itAdyacentes = this.grafo.obtenerAdyacentes(actual);
             while (itAdyacentes.hasNext()) {
                 Integer next = itAdyacentes.next();
-                if (visitados.get(actual) == BLANCO) {
+                if (visitados.contains(next)) {
                     //APLICO EL NUEVO ESTADO
-                    if (!solucion.contains(actual)) //PARA QUE NO ME AGREGUE 2 VECES UN VERTICE QUE TENGA 2 O MAS ADYACENTES QUE VAYAN A V
-                        solucionParcial.add(actual);  //EL ACTUAL (CANDIDATO) LO APLICO A LA SOLUCIÓN
-                    visitados.put(actual, NEGRO);
+                    solucionParcial.add(next); //APLICO EL CANDIDATO A LA SOLUCIÓN
                     //LLAMADO RECURSIVO
-                    verticesTerminanEnV(next, v, solucionParcial);
-                    //VOLVER AL ESTADO ANTERIOR(DESHACER)
-                    solucionParcial.remove(actual);
-                    visitados.put(actual, BLANCO);
+                    obtenerCamino(next, destino, solucionParcial);
+                    //VUELVO AL ESTADO ANTERIOR
+                    solucionParcial.remove(next);
                 }
 
             }
         }
-        visitados.put(actual, NEGRO);
+
+        visitados.add(actual);
     }
 }

@@ -108,7 +108,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
     @Override
     public Iterator<Integer> obtenerVertices() { //O(1)
-        return vertices.keySet().iterator(); //TA ROTO ESTO SE ROMPE EN EL EJ4
+        return vertices.keySet().iterator();
     }
 
     @Override

@@ -12,6 +12,8 @@ public class Main {
         grafito.agregarVertice(5);
         grafito.agregarVertice(6);
         grafito.agregarVertice(7);
+        grafito.agregarVertice(8);
+        grafito.agregarVertice(10);
 
 
         grafito.agregarArco(1, 2, 1);
@@ -21,8 +23,9 @@ public class Main {
         grafito.agregarArco(3, 5, 4);
         grafito.agregarArco(6, 7, 6);
         grafito.agregarArco(7, 5, 7);
-
+        grafito.agregarArco(7, 8, 17);
+        grafito.agregarArco(4, 10, 17);
         CaminoMasCortoEntreDosEsquinas camino = new CaminoMasCortoEntreDosEsquinas(grafito);
-        System.out.println(camino.obtenerCaminoMasCortoEntreDosEsquinas(1, 4));
+        System.out.println(camino.obtenerCaminoMasCortoEntreDosEsquinas(4, 1));
     }
 }
