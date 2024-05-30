@@ -32,8 +32,6 @@ public class CaminoMasCortoEntreDosEsquinas {
     }
 
     private List<Integer> obtenerCaminoMasCortoEntreDosEsquinasPriv(Integer origen, Integer destino) {
-        //IR TOMANDO PADRE HIJO
-        //UNA VEZ QUE LLEGO AL DESTINO DEBO AGREGAR PADRE HIJO PARA ATRAS
         HashMap<Integer, Integer> padreHijo = new HashMap<>();
         visitados.add(origen);
         colaVertices.add(origen);
@@ -43,15 +41,8 @@ public class CaminoMasCortoEntreDosEsquinas {
             while (itAdyacentesAElem.hasNext()) {
                 Integer next = itAdyacentesAElem.next();
                 padreHijo.put(next, primerElem);
-                padreHijo.put(primerElem, next);
                 if (next == destino) {
-                    for (int i = 0; i < solucion.size(); i++) {
-                        Integer padre = solucion.get(i);
-                        Integer hijo = padreHijo.get(padre);
-                        solucion.add(hijo);
-                        if (hijo == destino)
-                            return solucion;
-                    }
+                   return reconstruirCamino(padreHijo,next);
                 }
                 if (!visitados.contains(next)) {
                     visitados.add(next);
@@ -62,5 +53,19 @@ public class CaminoMasCortoEntreDosEsquinas {
         return new ArrayList<>();
     }
 
+    public List<Integer>reconstruirCamino(HashMap<Integer, Integer> padres, Integer destino){
+        LinkedList<Integer> salida = new LinkedList<>();
+        Integer actual = destino;
+        while (actual!=null){
+            salida.add(0,actual);
+            actual=padres.get(actual);
+        }
+        return salida;
+    }
+
+
+ //Podria tener una estrucutura en la clase procesador donde voy almacenando las tareas..
+    //Probablemente el primer solucion sera asignarle todas las tareas al primer procesador...
+    //tendria q dividir las tareas equitativamente en los procesadores q tengo
 
 }
