@@ -1,37 +1,32 @@
 package TP4.EJ6;
 
 import TP4.EJ1.GrafoDirigido;
+import TP4.EJ1.GrafoNoDirigido;
 
 import java.util.*;
 
 public class CaminoMasCortoEntreDosEsquinas {
     private Set<Integer> visitados;
     private Queue<Integer> colaVertices;
-    private List<Integer> solucion;
-    private GrafoDirigido<?> grafo;
+    private GrafoNoDirigido<?> grafo;
 
-    private static final String VISITADO = "VISITADO";
-    private static final String NO_VISITADO = "NO_VISITADO";
 
-    public CaminoMasCortoEntreDosEsquinas(GrafoDirigido<?> grafo) {
+    public CaminoMasCortoEntreDosEsquinas(GrafoNoDirigido<?> grafo) {
         this.grafo = grafo;
         this.visitados = new HashSet<>();
         this.colaVertices = new LinkedList<>();
-        this.solucion = new ArrayList<>();
     }
 
     public List<Integer> obtenerCaminoMasCortoEntreDosEsquinas(Integer origen, Integer destino) {
         colaVertices.clear();
-        solucion.clear();
 
         List<Integer> solucionParcial = new ArrayList<>();
-        solucion.add(origen);
         visitados.add(origen);
 
-        return obtenerCaminoMasCortoEntreDosEsquinasPriv(origen, destino);
+        return asignarPadresEHijos(origen, destino);
     }
 
-    private List<Integer> obtenerCaminoMasCortoEntreDosEsquinasPriv(Integer origen, Integer destino) {
+    private List<Integer> asignarPadresEHijos(Integer origen, Integer destino) {
         HashMap<Integer, Integer> padreHijo = new HashMap<>();
         visitados.add(origen);
         colaVertices.add(origen);
@@ -43,7 +38,7 @@ public class CaminoMasCortoEntreDosEsquinas {
                 if (!visitados.contains(next))
                     padreHijo.put(next, primerElem);
                 if (next == destino) {
-                    return reconstruirCamino(padreHijo, origen, next);
+                    return reconstruirCamino(padreHijo, next);
                 }
                 if (!visitados.contains(next)) {
                     visitados.add(next);
@@ -54,7 +49,7 @@ public class CaminoMasCortoEntreDosEsquinas {
         return new ArrayList<>();
     }
 
-    public List<Integer> reconstruirCamino(HashMap<Integer, Integer> padres, Integer origen, Integer destino) {
+    private List<Integer> reconstruirCamino(HashMap<Integer, Integer> padres, Integer destino) {
         LinkedList<Integer> salida = new LinkedList<>();
         Integer actual = destino;
         while (actual != null) {
@@ -63,6 +58,4 @@ public class CaminoMasCortoEntreDosEsquinas {
         }
         return salida;
     }
-
-
 }
