@@ -3,35 +3,47 @@ package TP5.EJ3;
 import java.util.*;
 
 public class SumaDeSubconjuntos {
-    private List<Integer> conjunto;
-    private List<Integer> solucion;
+    private LinkedList<Integer> conjunto;
+    private List<List<Integer>> subConjuntos;
 
     public SumaDeSubconjuntos() {
-        this.conjunto = new ArrayList<>();
-        this.solucion = new ArrayList<>();
+        this.conjunto = new LinkedList<>();
+        conjunto.add(4);
+        conjunto.add(6);
+        conjunto.add(2);
+        conjunto.add(1);
+
+        this.subConjuntos = new ArrayList<>();
     }
 
-    public List<Integer> sumaDeSubconjuntos(List<Integer> conjunto, Integer t) {
-        List<Integer> solucionParcial0 = new ArrayList<>();
-        List<Integer> solucionParcial = new ArrayList<>();
-
-        sumaDeSubconjuntos(conjunto, t, 0, solucionParcial);
-        return solucion;
+    public List<List<Integer>> back(Integer M) {
+        Integer suma = 0;
+        LinkedList<Integer> solucionParcial = new LinkedList<>();
+        back(M, suma, 0, solucionParcial);
+        return subConjuntos;
     }
 
-    private void sumaDeSubconjuntos(List<Integer> conjunto, Integer t, Integer actual, List<Integer> solucionParcial) {
-        if (t != t)
-            System.out.println("hola");
-        else {
-            for (int i = actual; i < conjunto.size(); i++) {
-                Integer next = conjunto.get(i);
-                solucionParcial.remove(next);
-                solucionParcial.add(1);
-                sumaDeSubconjuntos(conjunto, t, actual + 1, solucionParcial);
-                solucionParcial.remove(i);
-                solucionParcial.add(0);
+    private void back(Integer M, Integer suma, Integer iterador, LinkedList<Integer> solucionParcial) {
+        if (suma == M) {
+            subConjuntos.add(new LinkedList<>(solucionParcial));
+        } else {
+            for (int i = iterador; i < conjunto.size(); i++) {
+                Integer num = conjunto.get(i);
+                solucionParcial.add(num);
+                suma += num;
+                if (suma <= M)
+                    back(M, suma, i + 1, solucionParcial);
+                suma -= num;
+                solucionParcial.removeLast();
             }
         }
+    }
 
+    public static void main(String[] args) {
+        List<Integer> conjunto = new ArrayList<>();
+
+
+        SumaDeSubconjuntos algt = new SumaDeSubconjuntos();
+        System.out.println(algt.back(9));
     }
 }

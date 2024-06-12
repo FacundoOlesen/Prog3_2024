@@ -20,10 +20,11 @@ public class Main {
         grafito.agregarArco(3, 5, 4);
         grafito.agregarArco(1, 6, 5);
         grafito.agregarArco(6, 7, 6);
-        grafito.agregarArco(7, 5, 7);
-        grafito.agregarArco(5, 1, 7);
+        grafito.agregarArco(5, 7, 7);
+        grafito.agregarArco(4, 1, 8);
+        grafito.agregarArco(5, 4, 8);
 
-        CaminoMaxEntradaSalida algoritmo = new CaminoMaxEntradaSalida( grafito);
-        System.out.println(algoritmo.caminoMasLargoEntradaSalida(1,5));
+        CaminoMaxEntradaSalida algoritmo = new CaminoMaxEntradaSalida(grafito);
+        System.out.println(algoritmo.DFSBacktracking(4 ,6));
     }
 }

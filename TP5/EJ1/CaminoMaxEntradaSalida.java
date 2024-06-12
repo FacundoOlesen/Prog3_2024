@@ -1,53 +1,52 @@
 package TP5.EJ1;
 
+import TP4.EJ1.Grafo;
 import TP4.EJ1.GrafoDirigido;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class CaminoMaxEntradaSalida {
-    private GrafoDirigido<?> grafo;
-    private HashSet<Integer> visitados;
-    private List<Integer> mejorSolucion;
+    private static final String BLANCO = "BLANCO";
+    private static final String AMARILLO = "AMARILLO";
+    private static final String NEGRO = "NEGRO";
+    private HashMap<Integer, String> verticesColores;
+    private LinkedList<Integer> solucion;
+    private GrafoDirigido<Integer> grafo;
 
-    public CaminoMaxEntradaSalida(GrafoDirigido<?> grafo) {
+    public CaminoMaxEntradaSalida(GrafoDirigido<Integer> grafo) {
+        this.verticesColores = new HashMap<>();
+        this.solucion = new LinkedList<>();
         this.grafo = grafo;
-        this.visitados = new HashSet<>();
-        this.mejorSolucion = new ArrayList<>();
     }
 
-    public List<Integer> caminoMasLargoEntradaSalida(Integer origen, Integer destino) { //INICIALIZO
-        visitados.clear();
-        mejorSolucion.clear();
 
-        List<Integer> caminoParcial = new ArrayList<>();
-        caminoParcial.add(origen);
-        visitados.add(origen);
+    public LinkedList<Integer> DFSBacktracking(Integer entrada, Integer salida) {
+        LinkedList<Integer> solucionParcial = new LinkedList<>();
+        solucionParcial.add(entrada);
+        Iterator<Integer> itVertices = grafo.obtenerVertices();
+        while (itVertices.hasNext())
+            verticesColores.put(itVertices.next(), BLANCO);
+        DFS_VisitBacktracking(entrada, salida, solucionParcial);
+        return solucion;
 
-        caminoMasLargoEntradaSalida(origen, destino, caminoParcial);
-
-        return mejorSolucion;
     }
 
-    private void caminoMasLargoEntradaSalida(Integer actual, Integer destino, List<Integer> solucionParcial) {
-        if (actual == destino) {
-            if (solucionParcial.size() >= mejorSolucion.size()) {
-                mejorSolucion.clear();
-                mejorSolucion.addAll(solucionParcial);
+    private void DFS_VisitBacktracking(Integer entrada, Integer salida, LinkedList<Integer> solucionParcial) {
+        if (entrada == salida) {
+            if (solucionParcial.size() > solucion.size()) {
+                solucion.clear();
+                solucion = new LinkedList<>(solucionParcial);
             }
-        } else {
-            Iterator<Integer> itAdyacentes = this.grafo.obtenerAdyacentes(actual);
-            while (itAdyacentes.hasNext()) {
-                Integer next = itAdyacentes.next();
-                if (!visitados.contains(next)) {
-                    visitados.add(next);
-                    solucionParcial.add(next);
-                    caminoMasLargoEntradaSalida(next, destino, solucionParcial);
-                    visitados.remove(next);
-                    solucionParcial.remove(next);
-                }
+        }
+        Iterator<Integer> itAdyacentes = grafo.obtenerAdyacentes(entrada);
+        while (itAdyacentes.hasNext()) {
+            Integer next = itAdyacentes.next();
+            if (verticesColores.get(next) == BLANCO) {
+                verticesColores.put(entrada, AMARILLO);
+                solucionParcial.add(next);
+                DFS_VisitBacktracking(next, salida, solucionParcial);
+                solucionParcial.remove(next);
+                verticesColores.put(entrada, NEGRO);
             }
         }
     }
