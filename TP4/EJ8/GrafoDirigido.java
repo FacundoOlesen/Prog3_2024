@@ -1,7 +1,10 @@
-package TP4.EJ1;
+package TP4.EJ8;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class GrafoDirigido<T> implements Grafo<T> {
     private int cantVertices = 0;
@@ -39,7 +42,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
     }
 
     @Override
-    public  void agregarArco(T verticeId1, T verticeId2, T etiqueta) { //O(1)
+    public  void agregarArco(T verticeId1, T verticeId2, Integer etiqueta) { //O(1)
         if (vertices.get(verticeId1) != null && vertices.get(verticeId2) != null) {
             LinkedList<Arco<T>> arcosDeOrigen = vertices.get(verticeId1);
             arcosDeOrigen.add(new Arco(verticeId1, verticeId2, etiqueta));

@@ -8,33 +8,31 @@ public class SumaDeSubconjuntos {
 
     public SumaDeSubconjuntos() {
         this.conjunto = new LinkedList<>();
-        conjunto.add(4);
-        conjunto.add(6);
         conjunto.add(2);
-        conjunto.add(1);
+        conjunto.add(3);
+        conjunto.add(6);
+        conjunto.add(7);
 
         this.subConjuntos = new ArrayList<>();
     }
 
     public List<List<Integer>> back(Integer M) {
-        Integer suma = 0;
         LinkedList<Integer> solucionParcial = new LinkedList<>();
-        back(M, suma, 0, solucionParcial);
+        back(M, 0, 0, solucionParcial);
         return subConjuntos;
     }
 
-    private void back(Integer M, Integer suma, Integer iterador, LinkedList<Integer> solucionParcial) {
-        if (suma == M) {
+    private void back(Integer target, Integer suma, Integer iterador, LinkedList<Integer> solucionParcial) {
+        if (suma == target) {
             subConjuntos.add(new LinkedList<>(solucionParcial));
         } else {
-            for (int i = iterador; i < conjunto.size(); i++) {
-                Integer num = conjunto.get(i);
-                solucionParcial.add(num);
-                suma += num;
-                if (suma <= M)
-                    back(M, suma, i + 1, solucionParcial);
-                suma -= num;
-                solucionParcial.removeLast();
+            if (iterador < conjunto.size()) {
+                Integer num = conjunto.get(iterador);
+                 solucionParcial.add(num);
+                if (suma <= target)
+                    back(target, suma += num, iterador + 1, solucionParcial);
+                solucionParcial.remove(num);
+                back(target, suma -= num, iterador + 1, solucionParcial);
             }
         }
     }
@@ -44,6 +42,6 @@ public class SumaDeSubconjuntos {
 
 
         SumaDeSubconjuntos algt = new SumaDeSubconjuntos();
-        System.out.println(algt.back(9));
+        System.out.println(algt.back(13));
     }
 }

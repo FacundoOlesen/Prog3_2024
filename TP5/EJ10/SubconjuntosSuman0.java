@@ -23,17 +23,18 @@ public class SubconjuntosSuman0 {
         return solucion;
     }
 
-    private void back(Integer N, LinkedList<Integer> subConjunto, Integer suma, int iterador) {
+
+    private void back(Integer N, LinkedList<Integer> subConjunto, Integer suma, Integer iterador) {
+
         if (suma == 0 && subConjunto.size() == N) {
             solucion.add(new HashSet<>(subConjunto));
         } else {
-            for (int i = iterador; i < conjunto.size(); i++) {
-                Integer num = conjunto.get(i);
+            if (iterador < conjunto.size() && subConjunto.size() <= N) {
+                Integer num = conjunto.get(iterador);
                 subConjunto.add(num);
-                suma += num;
-                back(N, subConjunto, suma, i + 1);
-                suma -= num;
+                back(N, subConjunto, suma += num, iterador + 1);
                 subConjunto.removeLast();
+                back(N, subConjunto, suma += num, iterador + 1);
             }
         }
     }

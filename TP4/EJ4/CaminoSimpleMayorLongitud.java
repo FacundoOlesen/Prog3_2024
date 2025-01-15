@@ -5,11 +5,11 @@ import TP4.EJ1.GrafoDirigido;
 import java.util.*;
 
 public class CaminoSimpleMayorLongitud {
-    private GrafoDirigido<?> grafo;
+    private GrafoDirigido<Integer> grafo;
     private HashSet<Integer> visitados;
     private List<Integer> mejorSolucion;
 
-    public CaminoSimpleMayorLongitud(GrafoDirigido<?> grafo) {
+    public CaminoSimpleMayorLongitud(GrafoDirigido<Integer> grafo) {
         this.grafo = grafo;
         this.visitados = new HashSet<>();
         this.mejorSolucion = new ArrayList<>();

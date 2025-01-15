@@ -6,15 +6,13 @@ import TP4.EJ1.GrafoDirigido;
 import java.util.*;
 
 public class CaminoMaxEntradaSalida {
-    private static final String BLANCO = "BLANCO";
-    private static final String AMARILLO = "AMARILLO";
-    private static final String NEGRO = "NEGRO";
-    private HashMap<Integer, String> verticesColores;
+
+    private Set<Integer> visitados;
     private LinkedList<Integer> solucion;
     private GrafoDirigido<Integer> grafo;
 
     public CaminoMaxEntradaSalida(GrafoDirigido<Integer> grafo) {
-        this.verticesColores = new HashMap<>();
+        this.visitados = new HashSet<>();
         this.solucion = new LinkedList<>();
         this.grafo = grafo;
     }
@@ -24,14 +22,14 @@ public class CaminoMaxEntradaSalida {
         LinkedList<Integer> solucionParcial = new LinkedList<>();
         solucionParcial.add(entrada);
         Iterator<Integer> itVertices = grafo.obtenerVertices();
-        while (itVertices.hasNext())
-            verticesColores.put(itVertices.next(), BLANCO);
+
         DFS_VisitBacktracking(entrada, salida, solucionParcial);
         return solucion;
 
     }
 
     private void DFS_VisitBacktracking(Integer entrada, Integer salida, LinkedList<Integer> solucionParcial) {
+        visitados.add(entrada);
         if (entrada == salida) {
             if (solucionParcial.size() > solucion.size()) {
                 solucion.clear();
@@ -41,13 +39,12 @@ public class CaminoMaxEntradaSalida {
         Iterator<Integer> itAdyacentes = grafo.obtenerAdyacentes(entrada);
         while (itAdyacentes.hasNext()) {
             Integer next = itAdyacentes.next();
-            if (verticesColores.get(next) == BLANCO) {
-                verticesColores.put(entrada, AMARILLO);
+            if (!visitados.contains(next)) {
                 solucionParcial.add(next);
                 DFS_VisitBacktracking(next, salida, solucionParcial);
                 solucionParcial.remove(next);
-                verticesColores.put(entrada, NEGRO);
             }
         }
+        visitados.remove(entrada);
     }
 }

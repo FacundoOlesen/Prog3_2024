@@ -24,7 +24,7 @@ public class CambioMonedas {
 
     public List<Integer> greedy(Integer M) {
         Integer suma = 0;
-        while (!solucion(suma, M) && suma < M && suma != null) {
+        while (!solucion(suma, M) && suma != null) {
             Integer X = seleccionar();
             if (factible(X, suma, M)) {
                 solucion.add(X);
@@ -43,9 +43,7 @@ public class CambioMonedas {
     }
 
     private Integer seleccionar() {
-        for (Integer i : candidatos)
-            return i;
-        return null;
+        return candidatos.size() > 0 ? candidatos.get(0) : null;
     }
 
     private boolean factible(Integer X, Integer suma, Integer M) {

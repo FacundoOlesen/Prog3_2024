@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         // Creo un grafo dirigdo donde las etiquetas de los arcos son valores Float
-        GrafoDirigido<Float> grafito = new GrafoDirigido<>();
+        GrafoDirigido<Integer> grafito = new GrafoDirigido<>();
 
         // Agrego los vertices 1 y 2
         grafito.agregarVertice(1);
@@ -15,10 +15,10 @@ public class Main {
 
 
         // Genero un arco desde 1 hasta 2 con el valor de etiqueta 3
-        grafito.agregarArco(1, 2, 3F);
-        grafito.agregarArco(1, 3, 5F);
-        grafito.agregarArco(2, 1, 5F);
-        grafito.agregarArco(12, 1, 5F);
+        grafito.agregarArco(1, 2, 3);
+        grafito.agregarArco(1, 3, 5);
+        grafito.agregarArco(2, 1, 5);
+        grafito.agregarArco(12, 1, 5);
 
         System.out.println("OBTENGO ARCO: " + grafito.obtenerArco(1, 3));
         //grafito.borrarVertice(1);
@@ -44,12 +44,12 @@ public class Main {
             System.out.println(itAdyacentes.next());
 
         System.out.println("OBTENGO TODOS LOS ARCOS: ");
-        Iterator<Arco<Float>> itArcos = grafito.obtenerArcos();
+        Iterator<Arco<Integer>> itArcos = grafito.obtenerArcos();
         while (itArcos.hasNext())
             System.out.println(itArcos.next());
 
         System.out.println("OBTENGO TODOS LOS ARCOS DESDE VERTICE: ");
-        Iterator<Arco<Float>> itArcosDesdeVertice = grafito.obtenerArcos(1);
+        Iterator<Arco<Integer>> itArcosDesdeVertice = grafito.obtenerArcos(1);
         while (itArcosDesdeVertice.hasNext())
             System.out.println(itArcosDesdeVertice.next());
 

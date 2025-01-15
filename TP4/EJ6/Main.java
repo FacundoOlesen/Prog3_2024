@@ -26,6 +26,6 @@ public class Main {
         grafito.agregarArco(7, 8, 17);
         grafito.agregarArco(4, 10, 17);
         CaminoMasCortoEntreDosEsquinas camino = new CaminoMasCortoEntreDosEsquinas(grafito);
-        System.out.println(camino.obtenerCaminoMasCortoEntreDosEsquinas(1, 4));
+        System.out.println(camino.obtenerCaminoMasCortoEntreDosEsquinas(1, 10));
     }
 }

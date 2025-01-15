@@ -1,4 +1,4 @@
-package TP4.EJ1;
+package TP4.EJ8;
 
 import java.util.Iterator;
 
@@ -11,7 +11,7 @@ public interface Grafo<T> {
     public void borrarVertice(T verticeId);
 
     // Agrega un arco con una etiqueta, que conecta el verticeId1 con el verticeId2
-    public void agregarArco(T verticeId1, T verticeId2, T etiqueta);
+    public void agregarArco(T verticeId1, T verticeId2, Integer etiqueta);
 
     // Borra el arco que conecta el verticeId1 con el verticeId2
     public void borrarArco(T verticeId1, T verticeId2);

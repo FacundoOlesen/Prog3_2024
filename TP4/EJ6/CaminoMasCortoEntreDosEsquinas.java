@@ -8,10 +8,10 @@ import java.util.*;
 public class CaminoMasCortoEntreDosEsquinas {
     private Set<Integer> visitados;
     private Queue<Integer> colaVertices;
-    private GrafoNoDirigido<?> grafo;
+    private GrafoNoDirigido<Integer> grafo;
 
 
-    public CaminoMasCortoEntreDosEsquinas(GrafoNoDirigido<?> grafo) {
+    public CaminoMasCortoEntreDosEsquinas(GrafoNoDirigido<Integer> grafo) {
         this.grafo = grafo;
         this.visitados = new HashSet<>();
         this.colaVertices = new LinkedList<>();
@@ -19,43 +19,41 @@ public class CaminoMasCortoEntreDosEsquinas {
 
     public List<Integer> obtenerCaminoMasCortoEntreDosEsquinas(Integer origen, Integer destino) {
         colaVertices.clear();
+        visitados.clear();
 
         List<Integer> solucionParcial = new ArrayList<>();
         visitados.add(origen);
-
+        colaVertices.add(origen);
         return asignarPadresEHijos(origen, destino);
     }
 
     private List<Integer> asignarPadresEHijos(Integer origen, Integer destino) {
-        HashMap<Integer, Integer> padreHijo = new HashMap<>();
-        visitados.add(origen);
-        colaVertices.add(origen);
+        HashMap<Integer, Integer> hijoPadre = new HashMap<>();
         while (!colaVertices.isEmpty()) {
-            int primerElem = colaVertices.remove();
-            Iterator<Integer> itAdyacentesAElem = this.grafo.obtenerAdyacentes(primerElem);
+            int next = colaVertices.remove();
+            Iterator<Integer> itAdyacentesAElem = this.grafo.obtenerAdyacentes(next);
             while (itAdyacentesAElem.hasNext()) {
-                Integer next = itAdyacentesAElem.next();
-                if (!visitados.contains(next))
-                    padreHijo.put(next, primerElem);
-                if (next == destino) {
-                    return reconstruirCamino(padreHijo, next);
+                Integer ady = itAdyacentesAElem.next();
+                if (!visitados.contains(ady)) {
+                    visitados.add(ady);
+                    colaVertices.add(ady);
+                    hijoPadre.put(ady, next);
                 }
-                if (!visitados.contains(next)) {
-                    visitados.add(next);
-                    colaVertices.add(next);
-                }
+
+                if (next == destino)
+                    return reconstruirCamino(hijoPadre, next);
             }
         }
         return new ArrayList<>();
     }
 
     private List<Integer> reconstruirCamino(HashMap<Integer, Integer> padres, Integer destino) {
-        LinkedList<Integer> salida = new LinkedList<>();
+        LinkedList<Integer> res = new LinkedList<>();
         Integer actual = destino;
         while (actual != null) {
-            salida.add(0, actual);
+            res.add(0, actual);
             actual = padres.get(actual);
         }
-        return salida;
+        return res;
     }
 }

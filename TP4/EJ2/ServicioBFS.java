@@ -15,30 +15,27 @@ public class ServicioBFS {
     }
 
     public void BFS(Grafo<Integer> grafo) {
-        Iterator<Integer> itVertices = grafo.obtenerVertices();
         colaVertices.clear();
-        while (itVertices.hasNext())
-            visitados.add(itVertices.next());
 
-        Iterator<Integer> itVertices2 = grafo.obtenerVertices();
-        while (itVertices2.hasNext()) {
-            int next = itVertices2.next();
+        Iterator<Integer> itVertices = grafo.obtenerVertices();
+        while (itVertices.hasNext()) {
+            int next = itVertices.next();
             if (!visitados.contains(next))
                 BFS(grafo, next);
         }
     }
 
-    private void BFS(Grafo<Integer> grafo, Integer actual) {
-        visitados.add(actual);
-        colaVertices.add(actual);
+    private void BFS(Grafo<Integer> grafo, Integer vertice) {
+        visitados.add(vertice);
+        colaVertices.add(vertice);
         while (!colaVertices.isEmpty()) {
-            int primerElem = colaVertices.remove();
-            Iterator<Integer> itAdyacentesAElem = grafo.obtenerAdyacentes(primerElem);
-            while (itAdyacentesAElem.hasNext()) {
-                int next = itAdyacentesAElem.next();
-                if (!visitados.contains(next)) {
-                    visitados.add(next);
-                    colaVertices.add(next);
+            int next = colaVertices.remove();
+            Iterator<Integer> itAdy = grafo.obtenerAdyacentes(next);
+            while (itAdy.hasNext()) {
+                int ady = itAdy.next();
+                if (!visitados.contains(ady)) {
+                    visitados.add(ady);
+                    colaVertices.add(ady);
                 }
             }
         }
