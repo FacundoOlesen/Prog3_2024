@@ -22,27 +22,30 @@ public class DetectCiclo {
         itVertices = grafo.obtenerVertices();
         while (itVertices.hasNext()) {
             int next = itVertices.next();
-            if (DFS_Visit(grafo, next))
-                return true;
+            if (vColores.get(next) == BLANCO) {
+                if (DFS_Visit(grafo, null, next)) {
+                    return true;
+                }
+            }
         }
         return false;
     }
 
 
-    private boolean DFS_Visit(Grafo<Integer> grafo, Integer vertice) {
-        vColores.put(vertice, AMARILLO);
-        Iterator<Integer> itAdyacentes = grafo.obtenerAdyacentes(vertice);
+    private boolean DFS_Visit(Grafo<Integer> grafo, Integer padre, Integer act) {
+        vColores.put(act, AMARILLO);
+        Iterator<Integer> itAdyacentes = grafo.obtenerAdyacentes(act);
 
         while (itAdyacentes.hasNext()) {
-            int next = itAdyacentes.next();
+            Integer next = itAdyacentes.next();
             if (vColores.get(next) == BLANCO) {
-                return DFS_Visit(grafo, next);
-            } else if (vColores.get(next) == AMARILLO) {
+                if (DFS_Visit(grafo, act, next))
+                    return true;
+            } else if (!next.equals(padre) && vColores.get(next) == AMARILLO) {
                 return true;
             }
         }
-
-        vColores.put(vertice, NEGRO);
+        vColores.put(act, NEGRO);
         return false;
     }
 }
